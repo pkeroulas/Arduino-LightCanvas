@@ -1,4 +1,3 @@
-
 ### Overview
 
 Project page:  http://patkarbo.com/Light-Canvas
@@ -22,6 +21,10 @@ cd src
 make all
 make upload
 ```
+
+More information about how to avoid Arduino IDE: 
+http://pragprog.com/magazines/2011-04/advanced-arduino-hacking
+
 
 ### Development
 
