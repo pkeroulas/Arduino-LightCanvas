@@ -14,17 +14,17 @@ Arduino UNO: http://arduino.cc/en/Main/arduinoBoardUno
 
 ### Install
 
-Change absolute path in src/Makefile
+Download and install Arduino Software: http://arduino.cc/en/Main/Software
 
+More information about how to avoid Arduino IDE: 
+http://pragprog.com/magazines/2011-04/advanced-arduino-hacking
+
+Change absolute path in src/Makefile
 ```
 cd src
 make all
 make upload
 ```
-
-More information about how to avoid Arduino IDE: 
-http://pragprog.com/magazines/2011-04/advanced-arduino-hacking
-
 
 ### Development
 
