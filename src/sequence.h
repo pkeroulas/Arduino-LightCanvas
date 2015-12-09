@@ -61,6 +61,7 @@ ENV_OFFSET_TYPE_FORWARD|4, ENV_WAVEFORM_STROBE|ENV_INV_MASK|2,
 // Prototype
 void sequence_init(void);
 void sequence_update(uint8_t index);
+void sequence_skip(void);
 
 /*-----------------------------------------------------------------------*/
 //  global var

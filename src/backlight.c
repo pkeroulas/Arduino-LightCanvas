@@ -58,7 +58,7 @@ int main (void){
     sequence_runmode = SEQ_RUNMODE_SEQUENTIAL;
     generator_update();
     uint16_t frame_counter;
-    uint8_t seed;
+    uint8_t seed=0;
     _delay_ms(10);
 
     // Global interrupt enable.

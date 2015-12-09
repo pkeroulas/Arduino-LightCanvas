@@ -23,7 +23,7 @@
 #include <util/delay.h>
 // local
 #include "debug.h"
-#include "content.h"
+// #include "content.h"
 
 /* set the UART baud rate */
 /* 20060803: hacked by DojoCorp */
