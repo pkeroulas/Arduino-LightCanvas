@@ -70,7 +70,7 @@ PROGRAMMER ?= stk500v1
 MON_SPEED ?= 57600
 MON_CMD ?= picocom
 PORT ?= /dev/tty.usbserial-A60061a3
-BOARD ?= atmega328
+BOARD ?= uno
 
 ### Nothing below here should require editing. ###
 
@@ -84,8 +84,8 @@ ifndef PORT
 endif
 
 # Version-specific settings
-ARD_BOARDS = $(ARD_HOME)/hardware/arduino/boards.txt
-ARD_SRC_DIR = $(ARD_HOME)/hardware/arduino/cores/arduino
+ARD_BOARDS = $(ARD_HOME)/hardware/arduino/avr/boards.txt
+ARD_SRC_DIR = $(ARD_HOME)/hardware/arduino/avr/cores/arduino
 ARD_MAIN = $(ARD_SRC_DIR)/main.cpp
 
 # Standard macros.
@@ -265,7 +265,7 @@ upload : all
 #	- pkill -f '$(MON_CMD).*$(PORT)'
 	- sleep 1
 #	- stty -f $(PORT) hupclsize:
-	@avr-size -C --mcu=$(MCU) $(IMAGE).elf
+	 $(SIZE) -C --mcu=$(MCU) $(IMAGE).elf
 	- $(AVRDUDE) -v -C$(AVRDUDE_CONF) -p$(MCU) -c$(PROGRAMMER) \
 	  -P$(PORT) -b$(UPLOAD_SPEED) -D -Uflash:w:$(IMAGE).hex:i
 
