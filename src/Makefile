@@ -1,4 +1,3 @@
-
 # PAT'S comment
 # http://pragprog.com/magazines/2011-04/advanced-arduino-hacking
 # in arduino's preferences.txt, write upload.verboe = true
@@ -7,10 +6,11 @@
 # ARD_REV was 22, fuck
 # pins_arduino.h couldn't be found so it was added in INC_DIRS
 # see boards.txt for BOARD
+# tested with arduino 1.8.9
 
 # Your Arduino environment.
 ARD_REV = 1.0
-ARD_HOME = /home/pkeroulas/DEV/PERSO/arduino-1.6.6
+ARD_HOME = /home/pkeroulas/arduino-1.8.9
 #/Applications/Arduino.app/Contents/Resources/Java
 AVR_HOME = $(ARD_HOME)/hardware/tools/avr
 ARD_BIN = $(AVR_HOME)/bin
@@ -29,11 +29,9 @@ PORT = /dev/ttyACM0
 PROGRAMMER = arduino
 
 # Where to find header files and libraries.
-INC_DIRS = /home/pkeroulas/DEV/PERSO/arduino-1.6.6/hardware/arduino/avr/variants/standard /home/pkeroulas/DEV/PERSO/arduino-1.6.6/hardware/arduino/avr/libraries/SoftwareSerial
+INC_DIRS = $(ARD_HOME)/hardware/arduino/avr/variants/standard $(ARD_HOME)/hardware/arduino/avr/libraries/SoftwareSerial
 #./inc
 LIB_DIRS = $(addprefix $(ARD_HOME)/libraries/, $(LIBS))
 LIBS =
 
-
 include Makefile.master
-
