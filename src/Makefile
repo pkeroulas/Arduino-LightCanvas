@@ -20,7 +20,7 @@ AVRDUDE_CONF = $(AVR_HOME)/etc/avrdude.conf
 # Your favorite serial monitor.
 MON_CMD = screen
 MON_SPEED = 115200
-# MON_SPEED = 9600
+UPLOAD_SPEED = 57600 # same as in debug.c
 
 # Board settings.
 BOARD = uno
