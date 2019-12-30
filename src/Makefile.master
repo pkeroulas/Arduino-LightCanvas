@@ -266,6 +266,10 @@ upload : all
 	- $(AVRDUDE) -v -C$(AVRDUDE_CONF) -p$(MCU) -c$(PROGRAMMER) \
 	  -P$(PORT) -b$(UPLOAD_SPEED) -D -Uflash:w:$(IMAGE).hex:i
 
+download :
+	- $(AVRDUDE) -v -C$(AVRDUDE_CONF) -p$(MCU) -c$(PROGRAMMER) \
+	  -P$(PORT) -b$(UPLOAD_SPEED) -D -U flash:r:"/tmp/flash.bin":r
+
 monitor :
 	$(MON_CMD) $(PORT) $(MON_SPEED)
 # END:makemods
