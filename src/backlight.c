@@ -57,11 +57,11 @@ int main (void){
     sequence_update(0);
     sequence_runmode = SEQ_RUNMODE_SEQUENTIAL;
     generator_update();
-    uint16_t frame_counter;
-    uint8_t seed=0;
-    _delay_ms(10);
+    uint16_t frame_counter = 0;
+    uint8_t seed = 0;
 
     // Global interrupt enable.
+    _delay_ms(10);
     sei();
 
     while(1)
@@ -74,7 +74,7 @@ int main (void){
             generator_run();
             DEBUG_LED_PIN_TOGGLE();
 
-            if((frame_counter++ > 0x3FF)&&(sequence_runmode==SEQ_RUNMODE_TOGGLE)){
+            if((frame_counter++ > 0x3FF) && (sequence_runmode==SEQ_RUNMODE_SEQUENTIAL)){
                 sequence_skip();
                 generator_update();
                 frame_counter = 0;
@@ -86,6 +86,7 @@ int main (void){
             generator_update();
             debug_char = 0xFF;
         }
+
         // push button
         if((PIND&(1<<BUTTON_PIN)) == 0){
             button_press_counter = 0;

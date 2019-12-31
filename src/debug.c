@@ -60,7 +60,6 @@ volatile uint16_t t_in;
 volatile uint16_t t_out;
 #define  TBUFLEN()  (t_in - t_out)
 
-
 void debug_init(void){
     /* We run the bootloader regardless of the state of this pin.  Thus, don't
        put it in a different state than the other pins.  --DAM, 070709
@@ -135,5 +134,5 @@ char getch(void)
 
 ISR(USART_RX_vect ){
     debug_char = getch();
-    debug_char -= 48;
+    debug_char -= 48; // '0' -> 0
 }

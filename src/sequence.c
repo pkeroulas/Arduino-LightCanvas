@@ -24,10 +24,12 @@
 // local includes
 #include "sequence.h"
 
+// structure:
+// * periodic flags
+// * offset: offset_type(0x0#-0x7#)|variable_flag(0x80)|delay_factor(0x#0-0x#F)
+// * envelop: waveform|amplitude(0-3)
+// * speed(<25)
 
-
-// structure: periodic flags,
-// offset_type(0x0#-0x7#)|variable_flag(0x80)|delay_factor(0x#0-0x#F), waveform|amplitude(0-3), speed(<25)
 const uint8_t sequence_1[SEQ_SIZE] = {  0, // random fast
     ENV_OFFSET_TYPE_RAND|15, ENV_WAVEFORM_PULSE|2, 11,
     ENV_OFFSET_TYPE_RAND|15, ENV_WAVEFORM_PULSE|2, 11,
@@ -40,7 +42,7 @@ const uint8_t sequence_1[SEQ_SIZE] = {  0, // random fast
      ENV_OFFSET_TYPE_RAND|15, ENV_WAVEFORM_PULSE|2, 15,
      ENV_OFFSET_TYPE_RAND|15, ENV_WAVEFORM_PULSE|2, 15,
      };*/
-const uint8_t sequence_2[SEQ_SIZE] = {  SEQ_FLAGS_GLITCH_PIXEL, // random fast
+const uint8_t sequence_2[SEQ_SIZE] = {  SEQ_FLAGS_GLITCH_PIXEL, // random fast with glitches
     ENV_OFFSET_TYPE_RAND|ENV_OFFSET_FLAG_VARIABLE|15, ENV_WAVEFORM_PULSE|2, 7,
     ENV_OFFSET_TYPE_RAND|ENV_OFFSET_FLAG_VARIABLE|15, ENV_WAVEFORM_PULSE|2, 7,
     ENV_OFFSET_TYPE_RAND|ENV_OFFSET_FLAG_VARIABLE|15, ENV_WAVEFORM_PULSE|2, 7,
@@ -83,32 +85,29 @@ const uint8_t sequence_8[SEQ_SIZE] = {  SEQ_FLAGS_PERIODIC_PIXEL,	// up wave
     ENV_OFFSET_TYPE_UPWAVE|4, ENV_WAVEFORM_PLAIN, 25,
 };
 
-
-
-// sequence global param	
+// sequence global param
 uint8_t * sequence_tab[SEQ_N] = {&sequence_1,&sequence_2,&sequence_3,&sequence_4,&sequence_5,&sequence_6,&sequence_7,&sequence_8};
 uint8_t sequence_index;
 
 //sequencer
 void sequence_init(void){
 
-
 }
-
 
 void sequence_update(uint8_t index){
     if(index >= SEQ_N) {
-        //printf("Out of range index.\n");		
+        printf("Out of range index: %d/%d\n", index, SEQ_N);
         return;
     }
     sequence_index = index;
+    printf("Sequence index: %d\n", sequence_index);
     memcpy((uint8_t *) sequence, sequence_tab[sequence_index],1+LAYER_N*SEQ_LAYER_SIZE);
-    //memcpy((uint8_t *) sequence, sequence_tab[sequence_index],1+SEQ_LAYER_SIZE);
 }
 
 void sequence_skip(void){
     if(++sequence_index >= SEQ_N) {
         sequence_index = 0;
     }
+    printf("Sequence index: %d\n", sequence_index);
     memcpy((uint8_t *) sequence, sequence_tab[sequence_index],1+LAYER_N*SEQ_LAYER_SIZE);
 }

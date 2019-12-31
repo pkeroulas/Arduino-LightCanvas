@@ -71,7 +71,4 @@ uint8_t sequence[SEQ_SIZE];
 uint8_t sequence_pixel_done_counter;
 uint8_t sequence_pixel_cycle_counter;
 
-
-
-
 #endif // __SEQUENCE_H__

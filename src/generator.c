@@ -29,8 +29,6 @@
 #include "display.h"
 #include "debug.h"
 
-
-
 /*-----------------------------------------------------------------------*/
 // offset for factories
 const uint8_t horizontal_pos_tab[LAYER_N*PIXEL_N] = {2,3,5,6,1,2,3,3,4,5,6,1,2,3,4,5,6,3,4,6,1,2,4,2,2,3,4,6,0,0,0,0};
@@ -58,13 +56,13 @@ typedef struct {
     uint8_t min;
     uint8_t max;
     uint8_t offset_type;
-    uint8_t step;	
+    uint8_t step;
     uint8_t offset;
     uint8_t fade_in;
     uint8_t sustain;
     uint8_t fade_out;
-    uint8_t delay;	
-    uint16_t duration;	
+    uint8_t delay;
+    uint16_t duration;
     uint16_t index;
 } Enveloppe_t;
 
@@ -92,7 +90,8 @@ Layer_t layer_0;
 Layer_t layer_1;
 Layer_t layer_2;
 Layer_t layer_3;
-Layer_t * layer_tab[LAYER_N] = {&layer_0, &layer_1, &layer_2, &layer_3};										
+Layer_t * layer_tab[LAYER_N] = {&layer_0, &layer_1, &layer_2, &layer_3};
+
 /*-----------------------------------------------------------------------*/
 // protypes
 void enveloppe_update(void);
@@ -104,14 +103,12 @@ uint8_t pixel_interpolate(uint8_t start, uint8_t end, uint8_t remaining, uint8_t
 /*-----------------------------------------------------------------------*/
 // definitions
 
-
 FILE debug_stdout = FDEV_SETUP_STREAM(debug_putc, NULL, _FDEV_SETUP_WRITE);
-
 
 void generator_init(void){
     stdout = &debug_stdout;
     // todo restore sequence_index + 1  from eeprom
-    // save current animation in eeprom and restore the next one on boot		
+    // save current animation in eeprom and restore the next one on boot
 
     display_init();
     display_start();
@@ -167,20 +164,19 @@ void generator_run(void){
 /*--------------------------------------------------------------------------------*/
 // ENVELOPPES
 
-void enveloppe_update(void){	
+void enveloppe_update(void){
     //load
     for(uint8_t l=0;l<LAYER_N;l++)
         for(uint8_t p=0;p<PIXEL_N;p++)
             enveloppe_load(l*PIXEL_N+p,&(layer_tab[l]->pixel_tab[p].enveloppe), &sequence[1+l*SEQ_LAYER_SIZE]);
 
     //compensate == calculate a delay after the enveloppe so that the whole sequence stay periodic
-    if(sequence[SEQ_INDEX_FLAG] & SEQ_FLAGS_PERIODIC_PIXEL)	
+    if(sequence[SEQ_INDEX_FLAG] & SEQ_FLAGS_PERIODIC_PIXEL)
         enveloppe_compensate();
 
     // print the PIXEL_N first pixel
     for(uint8_t l=0;l<1;l++)
-        for(uint8_t p=0;p<PIXEL_N;p++)			
-            //printf("e[%d]=(o:%3d,i:%3d,s:%3d,o:%3d,d:%3d).\n",l*8+p,layer_tab[l]->pixel_tab[p].enveloppe.offset,layer_tab[l]->pixel_tab[p].enveloppe.fade_in,layer_tab[l]->pixel_tab[p].enveloppe.sustain,layer_tab[l]->pixel_tab[p].enveloppe.fade_out,layer_tab[l]->pixel_tab[p].enveloppe.delay);
+        for(uint8_t p=0;p<PIXEL_N;p++)
             printf("%2d=%3d,%3d,%3d\n",l*8+p,layer_tab[l]->pixel_tab[p].enveloppe.offset,layer_tab[l]->pixel_tab[p].enveloppe.fade_in,layer_tab[l]->pixel_tab[p].enveloppe.sustain);
 
 }
@@ -194,7 +190,7 @@ void enveloppe_compensate(void){
             if(layer_tab[l]->pixel_tab[p].enveloppe.duration > maximum_duration)
                 maximum_duration = layer_tab[l]->pixel_tab[p].enveloppe.duration;
         }
-    }		
+    }
     for(uint8_t l=0;l<LAYER_N;l++)
         for(uint8_t p=0;p<PIXEL_N;p++)
             layer_tab[l]->pixel_tab[p].enveloppe.delay += (uint8_t)(maximum_duration - layer_tab[l]->pixel_tab[p].enveloppe.duration);
