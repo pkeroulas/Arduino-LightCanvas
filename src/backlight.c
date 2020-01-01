@@ -73,7 +73,7 @@ int main (void){
         if(pwm_packet_counter>20){
             pwm_packet_counter = 0;
             generator_run();
-            DEBUG_LED_PIN_TOGGLE();
+            //DEBUG_LED_PIN_TOGGLE(); push button creates flicker on flower design
 
             if((frame_counter++ > 0x3FF) && (sequence_runmode==SEQ_RUNMODE_SEQUENTIAL)){
                 sequence_skip();

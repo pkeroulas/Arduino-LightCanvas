@@ -6,8 +6,7 @@
 #define SEQ_RUNMODE_NORMAL  	0
 #define SEQ_RUNMODE_SEQUENTIAL	1
 #define SEQ_RUNMODE_TOGGLE	    1
-#define SEQ_N 			8
-#define SEQ_N 			8
+#define SEQ_N 			2
 #define LAYER_N			4
 #define PIXEL_N			8
 
