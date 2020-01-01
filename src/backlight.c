@@ -38,7 +38,7 @@
 #include "debug.h"
 
 #define BUTTON_PWR_PIN 3
-#define BUTTON_PIN 7
+#define BUTTON_PUSH_PIN 7
 
 int main (void){
     cli();
@@ -46,10 +46,11 @@ int main (void){
     // debug
     DDRB |= (1<<DEBUG_LED_PIN);
     debug_init();
+
     // push button
     DDRD |= (1<<BUTTON_PWR_PIN); PORTD |= (1<<BUTTON_PWR_PIN);
-    DDRD &= ~(1<<BUTTON_PIN); PORTD |= (1<<BUTTON_PIN);
-    uint8_t button_press_counter;
+    DDRD &= ~(1<<BUTTON_PUSH_PIN); PORTD |= (1<<BUTTON_PUSH_PIN);
+    uint8_t button_press_counter = 0;
 
     // init
     sequence_init();
@@ -87,27 +88,31 @@ int main (void){
             debug_char = 0xFF;
         }
 
+        /*
         // push button
-        if((PIND&(1<<BUTTON_PIN)) == 0){
+        if((PIND&(1<<BUTTON_PUSH_PIN)) == 0){
             button_press_counter = 0;
             // measure the button press duration
-            while((PIND&(1<<BUTTON_PIN)) == 0){
+            while((PIND&(1<<BUTTON_PUSH_PIN)) == 0){
                 _delay_ms(100);
                 button_press_counter++;
             }
+            debug_putc('T'); // skip sequence
+            printf("Pressed button (counter=%d)\n", button_press_counter);
             // short press => next sequence
             if (button_press_counter < 10){
                 frame_counter = 0;
                 sequence_skip();
                 generator_update();
-                // debug_putc('d'); // skip sequence
+                debug_putc('d'); // skip sequence
             }
             // long press => switch between normal and sequential mode
             else{
                 frame_counter = 0;
                 sequence_runmode ^= SEQ_RUNMODE_TOGGLE;
-                // debug_putc('c'); // switch normal(current sequence)<->sequential
+                //printf("Switch to %s mode\n", (sequence_runmode | SEQ_RUNMODE_SEQUENTIAL)? "sequential" : "normal" );
             }
         }
+        */
     }
 }

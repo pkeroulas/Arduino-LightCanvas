@@ -25,6 +25,10 @@ make all
 make upload
 ```
 
+# Push button
+
+TODO
+
 # Debug
 
 Open the serial port to manually select and troubleshoot visual fx.
