@@ -75,7 +75,8 @@ int main (void){
             generator_run();
             //DEBUG_LED_PIN_TOGGLE(); push button creates flicker on flower design
 
-            if((frame_counter++ > 0x3FF) && (sequence_runmode==SEQ_RUNMODE_SEQUENTIAL)){
+            // 0x400 ~= 20sec
+            if((frame_counter++ > 0xCFF) && (sequence_runmode==SEQ_RUNMODE_SEQUENTIAL)){
                 sequence_skip();
                 generator_update();
                 frame_counter = 0;
